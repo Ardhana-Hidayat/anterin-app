@@ -1,0 +1,8 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.AnterInApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:fontFamily">@font/plus_jakarta_sans</item>
+    </style>
+
+    <style name="Theme.AnterInApp" parent="Base.Theme.AnterInApp" />
+</resources>
