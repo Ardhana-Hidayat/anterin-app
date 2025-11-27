@@ -2,6 +2,7 @@ package id.ac.pnm.anterinapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -13,8 +14,8 @@ class OnboardingActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding_2)
 
-        val buttonLogin = findViewById<ConstraintLayout>(R.id.btnMulai)
-        val buttonRegister = findViewById<ConstraintLayout>(R.id.btnDaftar)
+        val buttonLogin = findViewById<Button>(R.id.btnMulai)
+        val buttonRegister = findViewById<Button>(R.id.btnDaftar)
 
         buttonLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)

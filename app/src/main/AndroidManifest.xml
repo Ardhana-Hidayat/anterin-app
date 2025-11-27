@@ -12,11 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AnterInApp">
         <activity
+            android:name=".DashboardActivity"
+            android:exported="true" />
+        <activity
             android:name=".LoginActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".OnboardingActivity2"
             android:exported="true" />

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home_icon"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/nav_ticket"
+        android:icon="@drawable/voucher_icon"
+        android:title="Ticket" />
+
+    <item
+        android:id="@+id/nav_start"
+        android:icon="@drawable/motorcycle_icon"
+        android:title="Mulai" />
+
+    <item
+        android:id="@+id/nav_history"
+        android:icon="@drawable/history_icon"
+        android:title="History" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/user_icon"
+        android:title="Profile" />
+
+</menu>
