@@ -8,4 +8,19 @@
         android:id="@+id/homeFragment"
         android:name="id.ac.pnm.anterinapp.HomeFragment"
         android:label="HomeFragment" />
+
+    <fragment
+        android:id="@+id/voucherFragment"
+        android:name="id.ac.pnm.anterinapp.VoucherFragment"
+        android:label="VoucherFragment" />
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="id.ac.pnm.anterinapp.HistoryFragment"
+        android:label="HistoryFragment" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="id.ac.pnm.anterinapp.ProfileFragment"
+        android:label="ProfileFragment" />
 </navigation>
