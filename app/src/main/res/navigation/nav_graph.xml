@@ -23,4 +23,9 @@
         android:id="@+id/profileFragment"
         android:name="id.ac.pnm.anterinapp.ProfileFragment"
         android:label="ProfileFragment" />
+
+    <fragment
+        android:id="@+id/combinationFragment"
+        android:name="id.ac.pnm.anterinapp.CombinationFragment"
+        android:label="fragment_combination_select" />
 </navigation>
