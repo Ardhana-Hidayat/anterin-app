@@ -1,0 +1,18 @@
+package id.ac.pnm.anterinapp
+import android.os.Bundle
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+
+class DaftarPesananActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.fragment_daftar_pesanan)
+
+        val btnBack = findViewById<ImageView>(R.id.btnBack)
+
+        // Aksi ketika tombol Back ditekan
+        btnBack.setOnClickListener {
+            finish()
+        }
+    }
+}
