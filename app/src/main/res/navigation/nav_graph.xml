@@ -41,6 +41,15 @@
         android:name="id.ac.pnm.anterinapp.CombinationFragment"
         android:label="fragment_combination_select" />
 
+    <fragment
+        android:id="@+id/destinationFragment"
+        android:name="id.ac.pnm.anterinapp.DestinationFragment"
+        android:label="fragment_destination" />
+
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="id.ac.pnm.anterinapp.PaymentFragment"
+        android:label="PaymentFragment" />
 
     <fragment
         android:id="@+id/scheduleFragment"

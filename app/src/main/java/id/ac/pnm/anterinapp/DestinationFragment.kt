@@ -1,0 +1,174 @@
+package id.ac.pnm.anterinapp
+
+import android.location.Address
+import android.location.Geocoder
+import android.os.Bundle
+import android.preference.PreferenceManager
+import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.osmdroid.config.Configuration
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.MapView
+import java.util.Locale
+
+class DestinationFragment : Fragment() {
+
+    private lateinit var mapView: MapView
+    private lateinit var etSearch: EditText
+
+    // Variabel data
+    private var trans1Name: String = "Motor"
+    private var trans2Name: String = "Kereta"
+    private var trans1Icon: Int = R.drawable.motor_icon
+    private var trans2Icon: Int = R.drawable.train_icon
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Konfigurasi OSM
+        Configuration.getInstance().load(
+            context,
+            PreferenceManager.getDefaultSharedPreferences(context)
+        )
+        Configuration.getInstance().userAgentValue = requireContext().packageName
+        return inflater.inflate(R.layout.fragment_destination, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 1. Inisialisasi Map
+        mapView = view.findViewById(R.id.mapView)
+        mapView.setTileSource(TileSourceFactory.MAPNIK)
+        mapView.setMultiTouchControls(true)
+
+        // Default Lokasi (Madiun)
+        val startPoint = GeoPoint(-7.6298, 111.5176)
+        mapView.controller.setZoom(15.0)
+        mapView.controller.setCenter(startPoint)
+
+        // 2. Ambil Data Bundle
+        arguments?.let { args ->
+            trans1Name = args.getString("TRANS1_NAME", "Motor")
+            trans2Name = args.getString("TRANS2_NAME", "Kereta")
+            trans1Icon = args.getInt("TRANS1_ICON", R.drawable.motor_icon)
+            trans2Icon = args.getInt("TRANS2_ICON", R.drawable.train_icon)
+        }
+
+        // Update UI Indikator
+        view.findViewById<TextView>(R.id.tvTrans1).text = trans1Name
+        view.findViewById<TextView>(R.id.tvTrans2).text = trans2Name
+        view.findViewById<ImageView>(R.id.ivTrans1).setImageResource(trans1Icon)
+        view.findViewById<ImageView>(R.id.ivTrans2).setImageResource(trans2Icon)
+
+        // ---------------------------------------------------------
+        // 3. LOGIKA PENCARIAN LOKASI (GEOCODING)
+        // ---------------------------------------------------------
+        etSearch = view.findViewById(R.id.etSearchLocation)
+        val btnSearch = view.findViewById<ImageView>(R.id.btnSearch)
+
+        // A. Listener saat tombol Enter/Search di Keyboard ditekan
+        etSearch.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                actionId == EditorInfo.IME_ACTION_DONE ||
+                event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER
+            ) {
+                val locationName = etSearch.text.toString()
+                searchLocation(locationName)
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+
+        // B. Listener saat ikon Kaca Pembesar diklik
+        btnSearch.setOnClickListener {
+            val locationName = etSearch.text.toString()
+            searchLocation(locationName)
+        }
+
+        // 4. Tombol Back
+        view.findViewById<View>(R.id.btnBack).setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        // 5. Tombol Konfirmasi
+        view.findViewById<View>(R.id.btnConfirmDest).setOnClickListener {
+            val centerPos = mapView.mapCenter
+            // Kirim data ke Payment...
+            val bundle = Bundle().apply {
+                putString("TRANS1_NAME", trans1Name)
+                putString("TRANS2_NAME", trans2Name)
+                putInt("TRANS1_ICON", trans1Icon)
+                putInt("TRANS2_ICON", trans2Icon)
+                // Kirim Nama Lokasi Tujuan juga (dari EditText)
+                putString("DESTINATION_NAME", etSearch.text.toString())
+            }
+            findNavController().navigate(R.id.paymentFragment, bundle)
+        }
+    }
+
+    // FUNGSI PENCARIAN (Menggunakan Geocoder)
+    private fun searchLocation(locationName: String) {
+        if (locationName.isEmpty()) {
+            Toast.makeText(context, "Masukkan nama lokasi", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Gunakan Coroutine untuk proses background agar tidak macet (ANR)
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                // Cari maksimal 1 hasil
+                val listAddresses: List<Address>? = geocoder.getFromLocationName(locationName, 1)
+
+                if (!listAddresses.isNullOrEmpty()) {
+                    val address = listAddresses[0]
+                    val lat = address.latitude
+                    val lon = address.longitude
+
+                    // Pindah ke Thread Utama untuk update UI (Peta)
+                    withContext(Dispatchers.Main) {
+                        val newPoint = GeoPoint(lat, lon)
+                        mapView.controller.animateTo(newPoint)
+                        mapView.controller.setZoom(15.0)
+
+                        Toast.makeText(context, "Menuju: ${address.featureName ?: locationName}", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(context, "Lokasi tidak ditemukan", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "Error koneksi atau geocoder: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+}
