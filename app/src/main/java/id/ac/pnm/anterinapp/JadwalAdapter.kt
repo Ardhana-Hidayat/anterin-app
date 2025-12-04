@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class JadwalAdapter(
     private val listJadwal: List<Jadwal>,
-    private val onItemClick: (Jadwal) -> Unit // Fungsi klik
+    private val onItemClick: (Jadwal) -> Unit
 ) : RecyclerView.Adapter<JadwalAdapter.JadwalViewHolder>() {
 
     class JadwalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -27,9 +27,8 @@ class JadwalAdapter(
         holder.tvTitle.text = item.judul
         holder.tvDate.text = item.tanggal
 
-        // LOGIKA KLIK LIST ADA DISINI
         holder.itemView.setOnClickListener {
-            onItemClick(item) // Kirim data item yang diklik ke Fragment
+            onItemClick(item)
         }
     }
 

@@ -25,14 +25,13 @@ class CombinationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val btnBack = view.findViewById<ImageView>(R.id.btnBack)
+        val tvSelected = view.findViewById<TextView>(R.id.tvSelectedCombination)
+        val rvCombinations = view.findViewById<RecyclerView>(R.id.rvCombinations)
+        val btnConfirm = view.findViewById<View>(R.id.btnConfirm)
 
         btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
-
-        val tvSelected = view.findViewById<TextView>(R.id.tvSelectedCombination)
-        val rvCombinations = view.findViewById<RecyclerView>(R.id.rvCombinations)
-        val btnConfirm = view.findViewById<View>(R.id.btnConfirm)
 
         val data = listOf(
             CombinationModel(1, "Motor", R.drawable.motor_icon, "Kereta", R.drawable.train_icon),
@@ -41,7 +40,10 @@ class CombinationFragment : Fragment() {
             CombinationModel(4, "Mobil", R.drawable.car_icon, "Kereta", R.drawable.train_icon)
         )
 
+        var selectedCombination: CombinationModel? = null
+
         val adapter = CombinationAdapter(data) { selectedItem ->
+            selectedCombination = selectedItem
             tvSelected.text = "${selectedItem.transport1Name} + ${selectedItem.transport2Name}"
         }
 
@@ -49,10 +51,17 @@ class CombinationFragment : Fragment() {
         rvCombinations.adapter = adapter
 
         btnConfirm.setOnClickListener {
-            if (tvSelected.text == "-") {
+            if (selectedCombination == null) {
                 Toast.makeText(context, "Pilih kombinasi dulu!", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(context, "Memesan: ${tvSelected.text}", Toast.LENGTH_SHORT).show()
+                val bundle = Bundle().apply {
+                    putString("TRANS1_NAME", selectedCombination!!.transport1Name)
+                    putString("TRANS2_NAME", selectedCombination!!.transport2Name)
+                    putInt("TRANS1_ICON", selectedCombination!!.transport1Icon)
+                    putInt("TRANS2_ICON", selectedCombination!!.transport2Icon)
+                }
+
+                findNavController().navigate(R.id.destinationFragment, bundle)
             }
         }
     }

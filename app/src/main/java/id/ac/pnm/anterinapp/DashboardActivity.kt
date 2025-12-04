@@ -38,6 +38,30 @@ class DashboardActivity : AppCompatActivity() {
                     bottomAppBar.visibility = View.GONE
                     params.bottomMargin = 0
                 }
+                R.id.scheduleFragment -> {
+                    bottomAppBar.visibility = View.GONE
+                    params.bottomMargin = 0
+                }
+                R.id.daftarPesananFragment -> {
+                    bottomAppBar.visibility = View.GONE
+                    params.bottomMargin = 0
+                }
+                R.id.addTripFragment -> {
+                    bottomAppBar.visibility = View.GONE
+                    params.bottomMargin = 0
+                }
+                R.id.destinationFragment -> {
+                    bottomAppBar.visibility = View.GONE
+                    params.bottomMargin = 0
+                }
+                R.id.paymentFragment -> {
+                    bottomAppBar.visibility = View.GONE
+                    params.bottomMargin = 0
+                }
+                R.id.successFragment -> {
+                    bottomAppBar.visibility = View.GONE
+                    params.bottomMargin = 0
+                }
 
                 R.id.homeFragment,
                 R.id.voucherFragment,

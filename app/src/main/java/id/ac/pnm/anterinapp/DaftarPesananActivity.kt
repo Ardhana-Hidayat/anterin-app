@@ -7,12 +7,5 @@ class DaftarPesananActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_daftar_pesanan)
-
-        val btnBack = findViewById<ImageView>(R.id.btnBack)
-
-        // Aksi ketika tombol Back ditekan
-        btnBack.setOnClickListener {
-            finish()
-        }
     }
 }

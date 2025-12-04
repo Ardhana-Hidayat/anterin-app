@@ -13,9 +13,8 @@ class SuccessFragment : Fragment(R.layout.fragment_success) {
 
         val btnFinish = view.findViewById<Button>(R.id.btnFinish)
 
-        // Selesai -> Kembali ke Home (Schedule)
         btnFinish.setOnClickListener {
-            findNavController().navigate(R.id.action_success_to_schedule)
+            findNavController().navigate(R.id.daftarPesananFragment)
         }
     }
 }
