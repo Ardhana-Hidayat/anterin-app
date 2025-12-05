@@ -18,6 +18,7 @@ class AddTripFragment : Fragment(R.layout.fragment_add_trip) {
         btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
         btnSave.setOnClickListener {
             findNavController().navigate(R.id.action_addTrip_to_success)
         }
