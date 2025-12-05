@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class JadwalAdapter(
-    private val listJadwal: List<Jadwal>,
-    private val onItemClick: (Jadwal) -> Unit
-) : RecyclerView.Adapter<JadwalAdapter.JadwalViewHolder>() {
+class ScheduleAdapter(
+    private val listSchedule: List<Schedule>,
+    private val onItemClick: (Schedule) -> Unit
+) : RecyclerView.Adapter<ScheduleAdapter.JadwalViewHolder>() {
 
     class JadwalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView = view.findViewById(R.id.tvItemTitle)
@@ -18,12 +18,12 @@ class JadwalAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JadwalViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_jadwal, parent, false)
+            .inflate(R.layout.item_schedule, parent, false)
         return JadwalViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: JadwalViewHolder, position: Int) {
-        val item = listJadwal[position]
+        val item = listSchedule[position]
         holder.tvTitle.text = item.judul
         holder.tvDate.text = item.tanggal
 
@@ -32,5 +32,5 @@ class JadwalAdapter(
         }
     }
 
-    override fun getItemCount() = listJadwal.size
+    override fun getItemCount() = listSchedule.size
 }

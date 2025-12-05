@@ -41,7 +41,6 @@ class PaymentFragment : Fragment() {
 
         view.findViewById<Button>(R.id.btnPay).setOnClickListener {
             Toast.makeText(context, "Pembayaran Berhasil!", Toast.LENGTH_LONG).show()
-            // Kembali ke Home
             findNavController().navigate(R.id.successFragment)
         }
     }

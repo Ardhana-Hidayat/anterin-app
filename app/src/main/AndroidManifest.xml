@@ -54,15 +54,15 @@
             android:exported="true" />
 
         <activity
-            android:name=".DaftarPesananActivity"
+            android:name=".OrderingListActivity"
             android:exported="true" />
 
         <activity
-            android:name=".DetailJadwalActivity"
+            android:name=".ScheduleDetailsActivity"
             android:exported="true" />
 
         <activity
-            android:name=".DetailPesananActivity"
+            android:name=".OrderingDetailsActivity"
             android:exported="true" />
 
     </application>

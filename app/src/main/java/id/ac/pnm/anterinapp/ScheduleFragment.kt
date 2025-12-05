@@ -15,11 +15,11 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dataJadwal = listOf(
-            Jadwal("1", "Berangkat ke Kampus", "10 November 2025"),
-            Jadwal("2", "Pulang ke Rumah", "10 November 2025"),
-            Jadwal("3", "Ke Stasiun Madiun", "11 November 2025"),
-            Jadwal("4", "Jalan-jalan sore", "12 November 2025")
+        val dataSchedules = listOf(
+            Schedule("1", "Berangkat ke Kampus", "10 November 2025"),
+            Schedule("2", "Pulang ke Rumah", "10 November 2025"),
+            Schedule("3", "Ke Stasiun Madiun", "11 November 2025"),
+            Schedule("4", "Jalan-jalan sore", "12 November 2025")
         )
 
         val btnBack = view.findViewById<ImageView>(R.id.btnBack)
@@ -31,7 +31,7 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
         val rvJadwal = view.findViewById<RecyclerView>(R.id.rvJadwal)
         rvJadwal.layoutManager = LinearLayoutManager(context)
 
-        val adapter = JadwalAdapter(dataJadwal) { jadwalTerpilih ->
+        val adapter = ScheduleAdapter(dataSchedules) { jadwalTerpilih ->
 
             val bundle = bundleOf("JUDUL_JADWAL" to jadwalTerpilih.judul)
 
