@@ -1,4 +1,4 @@
-package id.ac.pnm.anterinapp
+package id.ac.pnm.anterinapp.model
 
 data class HistoryData(
     val title: String,

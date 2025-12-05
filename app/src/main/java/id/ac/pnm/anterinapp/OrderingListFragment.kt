@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import id.ac.pnm.anterinapp.adapter.OrderAdapter
+import id.ac.pnm.anterinapp.model.OrderData
 
 class OrderingListFragment : Fragment(R.layout.fragment_ordering_list) {
 
@@ -29,7 +31,7 @@ class OrderingListFragment : Fragment(R.layout.fragment_ordering_list) {
 
         val adapter = OrderAdapter(dataOrders) { orderTerpilih ->
 
-            findNavController().navigate(R.id.action_daftarPesanan_to_detailPesanan)
+            findNavController().navigate(R.id.action_orderList_to_orderDetail)
         }
 
         rvOrder.adapter = adapter

@@ -1,4 +1,4 @@
-package id.ac.pnm.anterinapp
+package id.ac.pnm.anterinapp.model
 
 data class VoucherData(
     val title: String,

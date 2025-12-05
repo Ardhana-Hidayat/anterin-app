@@ -1,4 +1,4 @@
-package id.ac.pnm.anterinapp
+package id.ac.pnm.anterinapp.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import id.ac.pnm.anterinapp.model.HistoryData
+import id.ac.pnm.anterinapp.R
 
 class HistoryAdapter(private val historyList: List<HistoryData>) :
     RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {

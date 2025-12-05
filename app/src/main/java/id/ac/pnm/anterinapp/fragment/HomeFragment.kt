@@ -1,4 +1,4 @@
-package id.ac.pnm.anterinapp
+package id.ac.pnm.anterinapp.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
+import id.ac.pnm.anterinapp.R
+import id.ac.pnm.anterinapp.adapter.HistoryAdapter
+import id.ac.pnm.anterinapp.model.HistoryData
 
 class HomeFragment : Fragment() {
 
@@ -28,19 +32,27 @@ class HomeFragment : Fragment() {
             try {
                 findNavController().navigate(R.id.combinationFragment)
             } catch (e: Exception) {
+                Toast.makeText(context, "Navigasi belum dipasang", Toast.LENGTH_SHORT).show()
             }
         }
 
         val btnMenuJadwal = view.findViewById<CardView>(R.id.btnMenuJadwal)
         btnMenuJadwal?.setOnClickListener {
-            findNavController().navigate(R.id.action_home_to_schedule)
+            try {
+                findNavController().navigate(R.id.action_home_to_schedule)
+            } catch (e: Exception) {
+                Toast.makeText(context, "Fitur Jadwal belum siap", Toast.LENGTH_SHORT).show()
+            }
         }
 
         val btnMenuPesanan = view.findViewById<CardView>(R.id.btnMenuPesanan)
         btnMenuPesanan?.setOnClickListener {
-            findNavController().navigate(R.id.action_home_to_daftarPesanan)
+            try {
+                findNavController().navigate(R.id.action_home_to_orderList)
+            } catch (e: Exception) {
+                Toast.makeText(context, "Fitur Pesanan belum siap", Toast.LENGTH_SHORT).show()
+            }
         }
-
 
         val rvHistoryDashboard = view.findViewById<RecyclerView>(R.id.rvHistoryDashboard)
 

@@ -1,14 +1,16 @@
-package id.ac.pnm.anterinapp
+package id.ac.pnm.anterinapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import id.ac.pnm.anterinapp.R
+import id.ac.pnm.anterinapp.model.ScheduleData
 
 class ScheduleAdapter(
-    private val listSchedule: List<Schedule>,
-    private val onItemClick: (Schedule) -> Unit
+    private val listScheduleData: List<ScheduleData>,
+    private val onItemClick: (ScheduleData) -> Unit
 ) : RecyclerView.Adapter<ScheduleAdapter.JadwalViewHolder>() {
 
     class JadwalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -23,7 +25,7 @@ class ScheduleAdapter(
     }
 
     override fun onBindViewHolder(holder: JadwalViewHolder, position: Int) {
-        val item = listSchedule[position]
+        val item = listScheduleData[position]
         holder.tvTitle.text = item.judul
         holder.tvDate.text = item.tanggal
 
@@ -32,5 +34,5 @@ class ScheduleAdapter(
         }
     }
 
-    override fun getItemCount() = listSchedule.size
+    override fun getItemCount() = listScheduleData.size
 }
