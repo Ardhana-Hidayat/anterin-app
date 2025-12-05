@@ -12,10 +12,9 @@
         android:title="Ticket" />
 
     <item
-        android:id="@+id/nav_start"
-        android:icon="@drawable/motorcycle_icon"
-        android:title="Mulai" />
-
+        android:id="@+id/placeholder"
+        android:title=""
+        android:enabled="false" />
     <item
         android:id="@+id/historyFragment"
         android:icon="@drawable/history_icon"
