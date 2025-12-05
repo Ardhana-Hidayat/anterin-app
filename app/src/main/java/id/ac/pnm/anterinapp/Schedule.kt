@@ -1,6 +1,6 @@
 package id.ac.pnm.anterinapp
 
-data class Jadwal(
+data class Schedule(
     val id: String,
     val judul: String,
     val tanggal: String

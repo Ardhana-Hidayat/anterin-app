@@ -16,20 +16,14 @@ class AddTripActivity : AppCompatActivity() {
         val btnSave = findViewById<Button>(R.id.btnSave)
         val etDate = findViewById<EditText>(R.id.etDate)
 
-        // Tombol Back
         btnBack.setOnClickListener {
             finish()
         }
 
-        // Logika sederhana untuk DatePicker (Opsional)
         etDate.setOnClickListener {
-            // Di sini Anda bisa memunculkan MaterialDatePicker
-            // Agar persis seperti aplikasi travel
         }
 
-        // Tombol Simpan
         btnSave.setOnClickListener {
-            // Navigasi ke Halaman Sukses
             val intent = Intent(this, SuccessActivity::class.java)
             startActivity(intent)
         }

@@ -15,12 +15,9 @@ class AddTripFragment : Fragment(R.layout.fragment_add_trip) {
         val btnBack = view.findViewById<ImageView>(R.id.btnBack)
         val btnSave = view.findViewById<Button>(R.id.btnSave)
 
-        // Kembali ke halaman sebelumnya
         btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
-
-        // Simpan -> Ke Halaman Sukses
         btnSave.setOnClickListener {
             findNavController().navigate(R.id.action_addTrip_to_success)
         }

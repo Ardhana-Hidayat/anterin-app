@@ -6,7 +6,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 
-class DaftarPesananFragment : Fragment(R.layout.fragment_daftar_pesanan) {
+class OrderingListFragment : Fragment(R.layout.fragment_ordering_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

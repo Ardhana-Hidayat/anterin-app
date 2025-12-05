@@ -13,7 +13,6 @@ class SuccessActivity : AppCompatActivity() {
         val btnFinish = findViewById<Button>(R.id.btnFinish)
 
         btnFinish.setOnClickListener {
-            // Aksi tombol selesai, misalnya kembali ke Home
             finish()
         }
     }

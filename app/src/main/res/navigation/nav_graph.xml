@@ -88,15 +88,15 @@
 
     <fragment
         android:id="@+id/detailJadwalFragment"
-        android:name="id.ac.pnm.anterinapp.DetailJadwalFragment"
+        android:name="id.ac.pnm.anterinapp.ScheduleDetailsFragment"
         android:label="Detail Jadwal"
-        tools:layout="@layout/fragment_detail_jadwal" />
+        tools:layout="@layout/fragment_schedule_details" />
 
     <fragment
         android:id="@+id/daftarPesananFragment"
-        android:name="id.ac.pnm.anterinapp.DaftarPesananFragment"
+        android:name="id.ac.pnm.anterinapp.OrderingListFragment"
         android:label="Daftar Pesanan"
-        tools:layout="@layout/fragment_daftar_pesanan">
+        tools:layout="@layout/fragment_ordering_list">
         <action
             android:id="@+id/action_daftarPesanan_to_detailPesanan"
             app:destination="@id/detailPesananFragment" />
@@ -104,8 +104,8 @@
 
     <fragment
         android:id="@+id/detailPesananFragment"
-        android:name="id.ac.pnm.anterinapp.DetailPesananFragment"
+        android:name="id.ac.pnm.anterinapp.OrderingDetailsFragment"
         android:label="Detail Pesanan"
-        tools:layout="@layout/fragment_detail_pesanan" />
+        tools:layout="@layout/fragment_ordering_details" />
 
 </navigation>
