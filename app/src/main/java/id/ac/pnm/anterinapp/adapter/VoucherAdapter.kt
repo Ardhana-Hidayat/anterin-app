@@ -1,4 +1,4 @@
-package id.ac.pnm.anterinapp
+package id.ac.pnm.anterinapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import id.ac.pnm.anterinapp.R
+import id.ac.pnm.anterinapp.model.VoucherData
 
 class VoucherAdapter(private val voucherList: List<VoucherData>) :
     RecyclerView.Adapter<VoucherAdapter.VoucherViewHolder>() {

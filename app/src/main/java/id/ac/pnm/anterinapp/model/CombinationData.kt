@@ -1,6 +1,6 @@
-package id.ac.pnm.anterinapp
+package id.ac.pnm.anterinapp.model
 
-data class CombinationModel(
+data class CombinationData(
     val id: Int,
     val transport1Name: String,
     val transport1Icon: Int,

@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import id.ac.pnm.anterinapp.adapter.CombinationAdapter
+import id.ac.pnm.anterinapp.model.CombinationData
 
 class CombinationFragment : Fragment() {
 
@@ -34,13 +36,13 @@ class CombinationFragment : Fragment() {
         }
 
         val data = listOf(
-            CombinationModel(1, "Motor", R.drawable.motor_icon, "Kereta", R.drawable.train_icon),
-            CombinationModel(2, "Motor", R.drawable.motor_icon, "Mobil", R.drawable.car_icon),
-            CombinationModel(3, "Motor", R.drawable.motor_icon, "Bus", R.drawable.bus_icon),
-            CombinationModel(4, "Mobil", R.drawable.car_icon, "Kereta", R.drawable.train_icon)
+            CombinationData(1, "Motor", R.drawable.motor_icon, "Kereta", R.drawable.train_icon),
+            CombinationData(2, "Motor", R.drawable.motor_icon, "Mobil", R.drawable.car_icon),
+            CombinationData(3, "Motor", R.drawable.motor_icon, "Bus", R.drawable.bus_icon),
+            CombinationData(4, "Mobil", R.drawable.car_icon, "Kereta", R.drawable.train_icon)
         )
 
-        var selectedCombination: CombinationModel? = null
+        var selectedCombination: CombinationData? = null
 
         val adapter = CombinationAdapter(data) { selectedItem ->
             selectedCombination = selectedItem

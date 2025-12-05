@@ -1,4 +1,4 @@
-package id.ac.pnm.anterinapp
+package id.ac.pnm.anterinapp.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -10,23 +10,28 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+// --- IMPORT PENTING ---
+import id.ac.pnm.anterinapp.R
+import id.ac.pnm.anterinapp.adapter.ScheduleAdapter
+import id.ac.pnm.anterinapp.model.ScheduleData
+
 class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dataSchedules = listOf(
-            Schedule("1", "Berangkat ke Kampus", "10 November 2025"),
-            Schedule("2", "Pulang ke Rumah", "10 November 2025"),
-            Schedule("3", "Ke Stasiun Madiun", "11 November 2025")
+        val dataScheduleData = listOf(
+            ScheduleData("1", "Berangkat ke Kampus", "10 November 2025"),
+            ScheduleData("2", "Pulang ke Rumah", "10 November 2025"),
+            ScheduleData("3", "Ke Stasiun Madiun", "11 November 2025")
         )
 
         val rvJadwal = view.findViewById<RecyclerView>(R.id.rvJadwal)
         rvJadwal.layoutManager = LinearLayoutManager(context)
 
-        val adapter = ScheduleAdapter(dataSchedules) { jadwalTerpilih ->
+        val adapter = ScheduleAdapter(dataScheduleData) { jadwalTerpilih ->
             val bundle = bundleOf("JUDUL_JADWAL" to jadwalTerpilih.judul)
-            findNavController().navigate(R.id.action_schedule_to_detailJadwal, bundle)
+            findNavController().navigate(R.id.action_schedule_to_scheduleDetail, bundle)
         }
         rvJadwal.adapter = adapter
 

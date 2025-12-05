@@ -1,4 +1,4 @@
-package id.ac.pnm.anterinapp
+package id.ac.pnm.anterinapp.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
+import id.ac.pnm.anterinapp.model.CombinationData
+import id.ac.pnm.anterinapp.R
 
 class CombinationAdapter(
-    private val items: List<CombinationModel>,
-    private val onItemClick: (CombinationModel) -> Unit
+    private val items: List<CombinationData>,
+    private val onItemClick: (CombinationData) -> Unit
 ) : RecyclerView.Adapter<CombinationAdapter.ViewHolder>() {
 
     private var selectedPosition = -1
@@ -24,7 +25,7 @@ class CombinationAdapter(
         val ivTrans2: ImageView = itemView.findViewById(R.id.ivTrans2)
         val tvTrans2: TextView = itemView.findViewById(R.id.tvTrans2)
 
-        fun bind(item: CombinationModel, position: Int) {
+        fun bind(item: CombinationData, position: Int) {
             tvTrans1.text = item.transport1Name
             ivTrans1.setImageResource(item.transport1Icon)
             tvTrans2.text = item.transport2Name

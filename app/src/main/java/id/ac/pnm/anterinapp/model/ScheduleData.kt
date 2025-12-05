@@ -1,6 +1,6 @@
-package id.ac.pnm.anterinapp
+package id.ac.pnm.anterinapp.model
 
-data class Schedule(
+data class ScheduleData(
     val id: String,
     val judul: String,
     val tanggal: String
