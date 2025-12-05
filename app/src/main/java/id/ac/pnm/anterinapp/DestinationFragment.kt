@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -25,11 +26,12 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import java.util.Locale
 
-
 class DestinationFragment : Fragment() {
 
     private lateinit var mapView: MapView
     private lateinit var etSearch: EditText
+
+    private var isFixedMode = false
     private var trans1Name: String = "Motor"
     private var trans2Name: String = "Kereta"
     private var trans1Icon: Int = R.drawable.motor_icon
@@ -58,25 +60,37 @@ class DestinationFragment : Fragment() {
         mapView.controller.setZoom(15.0)
         mapView.controller.setCenter(startPoint)
 
-        arguments?.let { args ->
-            trans1Name = args.getString("TRANS1_NAME", "Motor")
-            trans2Name = args.getString("TRANS2_NAME", "Kereta")
+        val args = arguments
+        if (args != null && args.containsKey("TRANS1_NAME")) {
+            isFixedMode = true
+            trans1Name = args.getString("TRANS1_NAME") ?: "Motor"
+            trans2Name = args.getString("TRANS2_NAME") ?: "Kereta"
             trans1Icon = args.getInt("TRANS1_ICON", R.drawable.motor_icon)
             trans2Icon = args.getInt("TRANS2_ICON", R.drawable.train_icon)
         }
 
-        view.findViewById<TextView>(R.id.tvTrans1).text = trans1Name
-        view.findViewById<TextView>(R.id.tvTrans2).text = trans2Name
-        view.findViewById<ImageView>(R.id.ivTrans1).setImageResource(trans1Icon)
-        view.findViewById<ImageView>(R.id.ivTrans2).setImageResource(trans2Icon)
+        val cardIndicator = view.findViewById<CardView>(R.id.cardIndicator)
+        val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
+
+        if (isFixedMode) {
+            cardIndicator.visibility = View.VISIBLE
+            view.findViewById<TextView>(R.id.tvTrans1).text = trans1Name
+            view.findViewById<TextView>(R.id.tvTrans2).text = trans2Name
+            view.findViewById<ImageView>(R.id.ivTrans1).setImageResource(trans1Icon)
+            view.findViewById<ImageView>(R.id.ivTrans2).setImageResource(trans2Icon)
+            tvTitle.text = "Tentukan Lokasi\nJemput & Tujuan"
+        } else {
+            cardIndicator.visibility = View.GONE
+            tvTitle.text = "Mau Kemana\nHari Ini?"
+        }
 
         etSearch = view.findViewById(R.id.etSearchLocation)
         val btnSearch = view.findViewById<ImageView>(R.id.btnSearch)
 
-        etSearch.setOnEditorActionListener { v, actionId, event ->
+        etSearch.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH ||
                 actionId == EditorInfo.IME_ACTION_DONE ||
-                event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER
+                (event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER)
             ) {
                 val locationName = etSearch.text.toString()
                 searchLocation(locationName)
@@ -85,27 +99,37 @@ class DestinationFragment : Fragment() {
             false
         }
 
-        btnSearch.setOnClickListener {
-            val locationName = etSearch.text.toString()
-            searchLocation(locationName)
+        btnSearch?.setOnClickListener {
+            searchLocation(etSearch.text.toString())
         }
 
         view.findViewById<View>(R.id.btnBack).setOnClickListener {
             findNavController().navigateUp()
         }
+        view.findViewById<View>(R.id.btnBackContainer).setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         view.findViewById<View>(R.id.btnConfirmDest).setOnClickListener {
-            val centerPos = mapView.mapCenter
+            val locationName = etSearch.text.toString()
+            val finalDest = if (locationName.isEmpty()) "Pin Lokasi Map" else locationName
+
             val bundle = Bundle().apply {
-                putString("TRANS1_NAME", trans1Name)
-                putString("TRANS2_NAME", trans2Name)
-                putInt("TRANS1_ICON", trans1Icon)
-                putInt("TRANS2_ICON", trans2Icon)
-                putString("DESTINATION_NAME", etSearch.text.toString())
+                putString("DESTINATION_NAME", finalDest)
             }
-            findNavController().navigate(R.id.paymentFragment, bundle)
+
+            if (isFixedMode) {
+                bundle.putString("TRANS1_NAME", trans1Name)
+                bundle.putString("TRANS2_NAME", trans2Name)
+                bundle.putInt("TRANS1_ICON", trans1Icon)
+                bundle.putInt("TRANS2_ICON", trans2Icon)
+                findNavController().navigate(R.id.paymentFragment, bundle)
+            } else {
+                findNavController().navigate(R.id.transportSelectionFragment, bundle)
+            }
         }
     }
+
     private fun searchLocation(locationName: String) {
         if (locationName.isEmpty()) {
             Toast.makeText(context, "Masukkan nama lokasi", Toast.LENGTH_SHORT).show()
@@ -126,7 +150,6 @@ class DestinationFragment : Fragment() {
                         val newPoint = GeoPoint(lat, lon)
                         mapView.controller.animateTo(newPoint)
                         mapView.controller.setZoom(15.0)
-
                         Toast.makeText(context, "Menuju: ${address.featureName ?: locationName}", Toast.LENGTH_SHORT).show()
                     }
                 } else {
@@ -136,7 +159,7 @@ class DestinationFragment : Fragment() {
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(context, "Error koneksi atau geocoder: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Gagal memuat lokasi", Toast.LENGTH_SHORT).show()
                 }
             }
         }
