@@ -81,11 +81,12 @@
         android:name="id.ac.pnm.anterinapp.SuccessFragment"
         android:label="Sukses"
         tools:layout="@layout/fragment_success">
+
         <action
-            android:id="@+id/action_success_to_schedule"
-            app:destination="@id/scheduleFragment"
-            app:popUpTo="@id/scheduleFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_success_to_orderList"
+            app:destination="@id/orderListFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
