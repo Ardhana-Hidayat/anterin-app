@@ -23,17 +23,21 @@ class PaymentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val trans1Name = arguments?.getString("TRANS1_NAME") ?: "Motor"
-        val trans2Name = arguments?.getString("TRANS2_NAME") ?: "Kereta"
-        val trans1Icon = arguments?.getInt("TRANS1_ICON") ?: R.drawable.motor_icon
-        val trans2Icon = arguments?.getInt("TRANS2_ICON") ?: R.drawable.train_icon
+        val transportName = arguments?.getString("TRANS1_NAME") ?: "Layanan"
+        val transportIcon = arguments?.getInt("TRANS1_ICON") ?: 0
+        val isStationBased = arguments?.getBoolean("IS_STATION_BASED") ?: false
+        val pickupLoc = arguments?.getString("PICKUP_LOCATION") ?: "Lokasi Terpilih"
 
-        view.findViewById<TextView>(R.id.tvTrans1).text = trans1Name
-        view.findViewById<TextView>(R.id.tvTrans2).text = trans2Name
-        view.findViewById<ImageView>(R.id.ivTrans1).setImageResource(trans1Icon)
-        view.findViewById<ImageView>(R.id.ivTrans2).setImageResource(trans2Icon)
+        view.findViewById<TextView>(R.id.tvTrans1).text = transportName
+        view.findViewById<ImageView>(R.id.ivTrans1).setImageResource(transportIcon)
 
-        view.findViewById<TextView>(R.id.tvCostDetailName).text = "$trans1Name + $trans2Name"
+        val tvRincian = view.findViewById<TextView>(R.id.tvCostDetailName)
+
+        if (isStationBased) {
+            tvRincian.text = "Tiket $transportName\n(Anda harus datang ke: $pickupLoc)"
+        } else {
+            tvRincian.text = "Layanan $transportName\n(Dijemput di: $pickupLoc)"
+        }
 
         view.findViewById<View>(R.id.btnBack).setOnClickListener {
             findNavController().navigateUp()
