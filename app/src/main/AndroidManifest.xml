@@ -15,22 +15,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AnterInApp">
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".OnboardingActivity2"
+            android:exported="true" />
+        <activity
+            android:name=".OnboardingActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".activity.DashboardActivity"
-            android:exported="true" />
-
-        <activity
-            android:name=".activity.LoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.RegisterActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.OnboardingActivity2"
-            android:exported="true" />
-        <activity
-            android:name=".activity.OnboardingActivity"
+            android:name=".ScheduleActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,8 +46,25 @@
         </activity>
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".AddTripActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".SuccessActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".DaftarPesananActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".DetailJadwalActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".DetailPesananActivity"
             android:exported="true" />
 
     </application>
+
 </manifest>
