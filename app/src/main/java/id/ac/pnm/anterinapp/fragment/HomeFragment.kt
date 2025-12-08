@@ -66,5 +66,31 @@ class HomeFragment : Fragment() {
         rvHistoryDashboard.layoutManager = LinearLayoutManager(context)
         val adapter = HistoryAdapter(historyList)
         rvHistoryDashboard.adapter = adapter
+
+        fun goToDestination(transportName: String, transportIcon: Int, isPublicTransport: Boolean) {
+            val bundle = Bundle().apply {
+                putString("TRANS_NAME", transportName)
+                putInt("TRANS_ICON", transportIcon)
+                // True = Kereta/Bus (Ke Stasiun), False = Motor/Mobil (Jemput)
+                putBoolean("IS_STATION_BASED", isPublicTransport)
+            }
+            findNavController().navigate(R.id.destinationFragment, bundle)
+        }
+
+        view.findViewById<View>(R.id.cardMotor).setOnClickListener {
+            goToDestination("Motor", R.drawable.motor_icon, false)
+        }
+
+        view.findViewById<View>(R.id.cardMobil).setOnClickListener {
+            goToDestination("Mobil", R.drawable.car_icon, false)
+        }
+
+        view.findViewById<View>(R.id.cardKereta).setOnClickListener {
+            goToDestination("Kereta", R.drawable.train_icon, true)
+        }
+
+        view.findViewById<View>(R.id.cardBus).setOnClickListener {
+            goToDestination("Bus", R.drawable.bus_icon, true)
+        }
     }
 }
