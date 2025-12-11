@@ -17,7 +17,6 @@ class VoucherAdapter(val voucherList: List<VoucherData>) :
         val tvTitle: TextView = view.findViewById(R.id.tvVoucherTitle)
         val tvDesc: TextView = view.findViewById(R.id.tvVoucherDesc)
         val tvDate: TextView = view.findViewById(R.id.tvVoucherDate)
-        val btnUse: Button = view.findViewById(R.id.btnUseVoucher)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VoucherViewHolder {
@@ -32,10 +31,6 @@ class VoucherAdapter(val voucherList: List<VoucherData>) :
         holder.tvTitle.text = item.title
         holder.tvDesc.text = item.description
         holder.tvDate.text = item.validUntil
-
-        holder.btnUse.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "Menggunakan ${item.title}...", Toast.LENGTH_SHORT).show()
-        }
     }
 
     override fun getItemCount(): Int {

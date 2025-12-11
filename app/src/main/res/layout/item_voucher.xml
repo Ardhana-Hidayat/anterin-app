@@ -45,17 +45,5 @@
             android:textColor="#999999"
             android:textSize="11sp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnUseVoucher"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="16dp"
-            app:backgroundTint="@color/blue_light"
-            android:text="Gunakan Sekarang"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>
