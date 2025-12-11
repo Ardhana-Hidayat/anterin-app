@@ -56,10 +56,6 @@
             android:defaultValue="true" />
     </fragment>
 
-    <fragment
-        android:id="@+id/combinationFragment"
-        android:name="id.ac.pnm.anterinapp.CombinationFragment"
-        android:label="fragment_combination_select" />
 
     <fragment
         android:id="@+id/destinationFragment"

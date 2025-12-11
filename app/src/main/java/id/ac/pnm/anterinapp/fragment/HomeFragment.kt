@@ -51,15 +51,6 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_home_to_orderList)
         }
 
-        val cardGabungan = view.findViewById<CardView>(R.id.cardGabungan)
-        cardGabungan.setOnClickListener {
-            try {
-                findNavController().navigate(R.id.combinationFragment)
-            } catch (e: Exception) {
-                Toast.makeText(context, "Fitur belum tersedia", Toast.LENGTH_SHORT).show()
-            }
-        }
-
         val rvHistoryDashboard = view.findViewById<RecyclerView>(R.id.rvHistoryDashboard)
 
         val historyList = listOf(

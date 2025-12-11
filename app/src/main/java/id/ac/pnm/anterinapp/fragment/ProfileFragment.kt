@@ -24,14 +24,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val btnKombinasi = view.findViewById<Button>(R.id.btnKombinasi)
 
-        btnKombinasi.setOnClickListener {
-            try {
-                findNavController().navigate(R.id.combinationFragment)
-            } catch (e: Exception) {
-                Toast.makeText(context, "Navigasi belum siap", Toast.LENGTH_SHORT).show()
-            }
-        }
+
     }
 }
