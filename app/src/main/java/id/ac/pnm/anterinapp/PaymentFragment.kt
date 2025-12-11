@@ -29,17 +29,16 @@ class PaymentFragment : Fragment() {
 
         val transportName = arguments?.getString("TRANS1_NAME") ?: "Layanan"
         val transportIcon = arguments?.getInt("TRANS1_ICON") ?: 0
-        val isStationBased = arguments?.getBoolean("IS_STATION_BASED") ?: false
         val destLoc = arguments?.getString("DESTINATION_NAME") ?: "Tujuan Kamu"
-        val pickupLoc = arguments?.getString("PICKUP_LOCATION") ?: "Lokasi Terpilih"
 
         view.findViewById<TextView>(R.id.tvTrans1).text = transportName
         view.findViewById<ImageView>(R.id.ivTrans1).setImageResource(transportIcon)
 
-        val tvRincian = view.findViewById<TextView>(R.id.tvCostDetailName)
+        val tvTransport = view.findViewById<TextView>(R.id.tvTransport)
         val tvDest = view.findViewById<TextView>(R.id.tvDestinationLoc)
 
         tvDest.text = "Tujuan: $destLoc"
+        tvTransport.text = transportName
 
         val calendar = Calendar.getInstance()
         val today = calendar.time
@@ -49,10 +48,6 @@ class PaymentFragment : Fragment() {
 
         val tvDateNow = view.findViewById<TextView>(R.id.tvDate)
         tvDateNow.text = dateString
-
-        if (isStationBased) {
-            tvRincian.text = "Tiket $transportName\n(Anda harus datang ke: $pickupLoc)"
-        }
 
         view.findViewById<View>(R.id.btnBack).setOnClickListener {
             findNavController().navigateUp()

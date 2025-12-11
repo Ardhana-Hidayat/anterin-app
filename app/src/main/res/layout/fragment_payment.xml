@@ -150,10 +150,10 @@
                         android:orientation="vertical"
                         android:padding="12dp">
                         <TextView
-                            android:id="@+id/tvCostDetailName"
+                            android:id="@+id/tvTransport"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Motor + Kereta"
+                            android:text="Motor"
                             android:textColor="#666666"
                             android:textSize="12sp" />
 
@@ -161,7 +161,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="15.000 + 100.000"
+                            android:text="15.000"
                             android:textColor="#2196F3"
                             android:textSize="16sp"
                             android:textStyle="bold" />

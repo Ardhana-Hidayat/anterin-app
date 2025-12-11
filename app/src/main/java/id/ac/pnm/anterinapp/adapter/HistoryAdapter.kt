@@ -10,15 +10,10 @@ import id.ac.pnm.anterinapp.R
 import id.ac.pnm.anterinapp.model.HistoryData
 
 class HistoryAdapter(
-    val originalList: List<HistoryData>,
+    val historyList: List<HistoryData>,
     val onItemClick: (HistoryData) -> Unit
 ) : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
-    var displayList = ArrayList<HistoryData>()
-
-    init {
-        displayList.addAll(originalList)
-    }
 
     class HistoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView = view.findViewById(R.id.tvHistoryTitle)
@@ -33,7 +28,7 @@ class HistoryAdapter(
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        val item = displayList[position]
+        val item = historyList[position]
 
         holder.tvTitle.text = item.title
         holder.tvDate.text = item.date
@@ -51,5 +46,5 @@ class HistoryAdapter(
         }
     }
 
-    override fun getItemCount(): Int = displayList.size
+    override fun getItemCount(): Int = historyList.size
 }

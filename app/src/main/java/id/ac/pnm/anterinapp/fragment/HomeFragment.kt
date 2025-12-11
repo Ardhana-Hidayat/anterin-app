@@ -36,25 +36,29 @@ class HomeFragment : Fragment() {
         val parentActivity = activity as DashboardActivity
         val name = parentActivity.userName
 
+        //header nama
         val tvGreeting = view.findViewById<TextView>(R.id.tvGreeting)
         tvGreeting.text = "Halo, $name!"
 
+        //carousel promo
         val vpBanner = view.findViewById<ViewPager2>(R.id.vpBanner)
 
+        //data carousel
         val bannerList = listOf(
             CarouselData(R.drawable.promo_1),
             CarouselData(R.drawable.promo_2),
             CarouselData(R.drawable.promo_3)
         )
 
+        //banner adapter
+        val bannerAdapter = BannerAdapter(bannerList)
+        vpBanner.adapter = bannerAdapter
+
         val btnProfile = view.findViewById<CardView>(R.id.cardProfile)
 
         btnProfile.setOnClickListener {
             findNavController().navigate(R.id.profileFragment)
         }
-
-        val bannerAdapter = BannerAdapter(bannerList)
-        vpBanner.adapter = bannerAdapter
 
         val btnMenuJadwal = view.findViewById<CardView>(R.id.btnMenuJadwal)
         btnMenuJadwal?.setOnClickListener {
@@ -84,7 +88,7 @@ class HomeFragment : Fragment() {
                 putString("ORDER_STATUS", selectedItem.status)
             }
             try {
-                findNavController().navigate(R.id.orderDetailFragment, bundle)
+                findNavController().navigate(R.id.detailHistoryFragment, bundle)
             } catch (e: Exception) {
                 Toast.makeText(context, "Gagal membuka detail: ${e.message}", Toast.LENGTH_SHORT).show()
             }

@@ -16,18 +16,13 @@ import androidx.navigation.fragment.findNavController
 
 class DestinationFragment : Fragment() {
 
-    lateinit var etSearch: EditText
+    private lateinit var etSearch: EditText
 
-    var isQuickMode = false
-    var isStationBased = false
-
-    var singleTransName: String? = null
-    var singleTransIcon: Int = 0
-
-    var trans1Name: String? = null
-    var trans2Name: String? = null
-    var trans1Icon: Int = 0
-    var trans2Icon: Int = 0
+    // Variabel untuk Mode Single Transport
+    private var isTransportSelected = false
+    private var isStationBased = false
+    private var transportName: String? = null
+    private var transportIcon: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,20 +34,14 @@ class DestinationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 1. CEK DATA DARI HALAMAN SEBELUMNYA
         val args = arguments
-        if (args != null) {
-            if (args.containsKey("TRANS1_NAME")) {
-                trans1Name = args.getString("TRANS1_NAME")
-                trans2Name = args.getString("TRANS2_NAME")
-                trans1Icon = args.getInt("TRANS1_ICON")
-                trans2Icon = args.getInt("TRANS2_ICON")
-
-            } else if (args.containsKey("TRANS_NAME")) {
-                isQuickMode = true
-                singleTransName = args.getString("TRANS_NAME")
-                singleTransIcon = args.getInt("TRANS_ICON")
-                isStationBased = args.getBoolean("IS_STATION_BASED", false)
-            }
+        if (args != null && args.containsKey("TRANS_NAME")) {
+            // Jika ada data transport (dari menu Motor/Mobil/dll)
+            isTransportSelected = true
+            transportName = args.getString("TRANS_NAME")
+            transportIcon = args.getInt("TRANS_ICON")
+            isStationBased = args.getBoolean("IS_STATION_BASED", false)
         }
 
         val cardIndicator = view.findViewById<CardView>(R.id.cardIndicator)
@@ -61,24 +50,16 @@ class DestinationFragment : Fragment() {
 
         cardIndicator?.visibility = View.GONE
 
-        if (isQuickMode) {
+        if (isTransportSelected) {
             if (isStationBased) {
+                // jika pilih kereta/bus
                 tvTitle.text = "Pilih Lokasi\nStasiun / Terminal"
                 etSearch.hint = "Cari nama stasiun/terminal..."
             } else {
-                tvTitle.text = "Tentukan Titik\nPenjemputan"
-                etSearch.hint = "Cari alamat jemput..."
+                // jika pilih motor/mobil
+                tvTitle.text = "Tentukan Tujuan Kamu"
+                etSearch.hint = "Cari alamat tujuan..."
             }
-
-        } else if (trans1Name != null) {
-            cardIndicator?.visibility = View.VISIBLE
-            tvTitle.text = "Tentukan Lokasi\nJemput & Tujuan"
-
-            view.findViewById<TextView>(R.id.tvTrans1).text = trans1Name
-            view.findViewById<TextView>(R.id.tvTrans2).text = trans2Name
-            view.findViewById<ImageView>(R.id.ivTrans1).setImageResource(trans1Icon)
-            view.findViewById<ImageView>(R.id.ivTrans2).setImageResource(trans2Icon)
-
         } else {
             tvTitle.text = "Mau Kemana\nHari Ini?"
             etSearch.hint = "Cari lokasi tujuan..."
@@ -86,6 +67,7 @@ class DestinationFragment : Fragment() {
 
         val btnSearch = view.findViewById<ImageView>(R.id.btnSearch)
 
+        //set listener search input
         etSearch.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH ||
                 actionId == EditorInfo.IME_ACTION_DONE ||
@@ -116,22 +98,14 @@ class DestinationFragment : Fragment() {
 
             val bundle = Bundle().apply {
                 putString("DESTINATION_NAME", finalDest)
-                putString("PICKUP_LOCATION", finalDest)
             }
 
-            if (isQuickMode) {
-                bundle.putString("TRANS1_NAME", singleTransName)
-                bundle.putInt("TRANS1_ICON", singleTransIcon)
+            if (isTransportSelected) {
+                bundle.putString("TRANS1_NAME", transportName)
+                bundle.putInt("TRANS1_ICON", transportIcon)
                 bundle.putBoolean("IS_STATION_BASED", isStationBased)
 
                 findNavController().navigate(R.id.paymentFragment, bundle)
-
-            } else if (trans1Name != null) {
-                bundle.putString("TRANS1_NAME", trans1Name)
-                bundle.putInt("TRANS1_ICON", trans1Icon)
-
-                findNavController().navigate(R.id.paymentFragment, bundle)
-
             } else {
                 findNavController().navigate(R.id.transportSelectionFragment, bundle)
             }

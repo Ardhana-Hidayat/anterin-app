@@ -27,7 +27,7 @@ class TransportSelectionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val destName = arguments?.getString("DESTINATION_NAME") ?: "Lokasi Pilihan"
-        view.findViewById<TextView>(R.id.tvDestinationInfo).text = "Menuju: $destName"
+        view.findViewById<TextView>(R.id.tvDestinationInfo).text = "Lokasi tujuan: $destName"
 
         val data = listOf(
             TransportData(1, "Motor", R.drawable.motor_icon),
