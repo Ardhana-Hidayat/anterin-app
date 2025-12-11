@@ -125,7 +125,7 @@
 
     <fragment
         android:id="@+id/orderListFragment"
-        android:name="id.ac.pnm.anterinapp.fragment.OrderingListFragment"
+        android:name="id.ac.pnm.anterinapp.OrderingListFragment"
         android:label="Order List"
         tools:layout="@layout/fragment_ordering_list">
         <action
@@ -138,5 +138,11 @@
         android:name="id.ac.pnm.anterinapp.OrderingDetailsFragment"
         android:label="Order Detail"
         tools:layout="@layout/fragment_ordering_details" />
+
+    <fragment
+        android:id="@+id/detailHistoryFragment"
+        android:name="id.ac.pnm.anterinapp.fragment.DetailHistoryFragment"
+        android:label="History Detail"
+        tools:layout="@layout/fragment_detail_history" />
 
 </navigation>

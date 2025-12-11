@@ -1,14 +1,18 @@
 package id.ac.pnm.anterinapp.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
-// --- IMPORT PENTING (Agar R terbaca) ---
 import id.ac.pnm.anterinapp.R
 import id.ac.pnm.anterinapp.adapter.HistoryAdapter
 import id.ac.pnm.anterinapp.model.HistoryData
@@ -36,9 +40,35 @@ class HistoryFragment : Fragment() {
         )
 
         val rvHistory = view.findViewById<RecyclerView>(R.id.rvHistory)
+        val etSearch = view.findViewById<EditText>(R.id.etSearchHistory)
+
         rvHistory.layoutManager = LinearLayoutManager(context)
 
-        val adapter = HistoryAdapter(dataList)
+        val adapter = HistoryAdapter(dataList) { selectedItem ->
+
+            val bundle = bundleOf(
+                "ORDER_TITLE" to selectedItem.title,
+                "ORDER_DATE" to selectedItem.date,
+                "ORDER_STATUS" to selectedItem.status
+            )
+
+            try {
+                findNavController().navigate(R.id.detailHistoryFragment, bundle)
+            } catch (e: Exception) {
+                Toast.makeText(context, "Halaman Detail belum siap", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         rvHistory.adapter = adapter
+
+        etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                adapter.filterList(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 }

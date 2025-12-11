@@ -28,6 +28,7 @@ class CombinationAdapter(
         fun bind(item: CombinationData, position: Int) {
             tvTrans1.text = item.transport1Name
             ivTrans1.setImageResource(item.transport1Icon)
+
             tvTrans2.text = item.transport2Name
             ivTrans2.setImageResource(item.transport2Icon)
 

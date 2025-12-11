@@ -39,7 +39,6 @@ class CombinationFragment : Fragment() {
             CombinationData(1, "Motor", R.drawable.motor_icon, "Kereta", R.drawable.train_icon),
             CombinationData(2, "Motor", R.drawable.motor_icon, "Mobil", R.drawable.car_icon),
             CombinationData(3, "Motor", R.drawable.motor_icon, "Bus", R.drawable.bus_icon),
-            CombinationData(4, "Mobil", R.drawable.car_icon, "Kereta", R.drawable.train_icon)
         )
 
         var selectedCombination: CombinationData? = null

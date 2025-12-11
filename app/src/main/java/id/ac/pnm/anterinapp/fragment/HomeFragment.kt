@@ -31,41 +31,27 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val vpBanner = view.findViewById<ViewPager2>(R.id.vpBanner)
-
         val bannerData = listOf(
             CarouselData(R.drawable.promo_1),
             CarouselData(R.drawable.promo_2),
             CarouselData(R.drawable.promo_3)
         )
-
         val bannerAdapter = BannerAdapter(bannerData)
         vpBanner.adapter = bannerAdapter
 
         val cardGabungan = view.findViewById<CardView>(R.id.cardGabungan)
         cardGabungan.setOnClickListener {
-            try {
-                findNavController().navigate(R.id.combinationFragment)
-            } catch (e: Exception) {
-                Toast.makeText(context, "Navigasi belum dipasang", Toast.LENGTH_SHORT).show()
-            }
+            findNavController().navigate(R.id.combinationFragment)
         }
 
         val btnMenuJadwal = view.findViewById<CardView>(R.id.btnMenuJadwal)
         btnMenuJadwal?.setOnClickListener {
-            try {
-                findNavController().navigate(R.id.action_home_to_schedule)
-            } catch (e: Exception) {
-                Toast.makeText(context, "Fitur Jadwal belum siap", Toast.LENGTH_SHORT).show()
-            }
+            findNavController().navigate(R.id.action_home_to_schedule)
         }
 
         val btnMenuPesanan = view.findViewById<CardView>(R.id.btnMenuPesanan)
         btnMenuPesanan?.setOnClickListener {
-            try {
-                findNavController().navigate(R.id.action_home_to_orderList)
-            } catch (e: Exception) {
-                Toast.makeText(context, "Fitur Pesanan belum siap", Toast.LENGTH_SHORT).show()
-            }
+            findNavController().navigate(R.id.action_home_to_orderList)
         }
 
         val rvHistoryDashboard = view.findViewById<RecyclerView>(R.id.rvHistoryDashboard)
@@ -78,14 +64,27 @@ class HomeFragment : Fragment() {
         )
 
         rvHistoryDashboard.layoutManager = LinearLayoutManager(context)
-        val adapter = HistoryAdapter(historyList)
+
+        val adapter = HistoryAdapter(historyList) { selectedItem ->
+            val bundle = Bundle().apply {
+                putString("ORDER_TITLE", selectedItem.title)
+                putString("ORDER_DATE", selectedItem.date)
+                putString("ORDER_STATUS", selectedItem.status)
+            }
+
+            try {
+                findNavController().navigate(R.id.detailHistoryFragment, bundle)
+            } catch (e: Exception) {
+                Toast.makeText(context, "Detail: ${selectedItem.title}", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         rvHistoryDashboard.adapter = adapter
 
         fun goToDestination(transportName: String, transportIcon: Int, isPublicTransport: Boolean) {
             val bundle = Bundle().apply {
                 putString("TRANS_NAME", transportName)
                 putInt("TRANS_ICON", transportIcon)
-                // True = Kereta/Bus (Ke Stasiun), False = Motor/Mobil (Jemput)
                 putBoolean("IS_STATION_BASED", isPublicTransport)
             }
             findNavController().navigate(R.id.destinationFragment, bundle)

@@ -31,17 +31,14 @@ class DestinationFragment : Fragment() {
     private lateinit var mapView: MapView
     private lateinit var etSearch: EditText
 
-    // Variabel State
     private var isComboMode = false
     private var isSingleMode = false
 
-    // Data untuk Mode Kombinasi
     private var trans1Name: String? = null
     private var trans2Name: String? = null
     private var trans1Icon: Int = 0
     private var trans2Icon: Int = 0
 
-    // Data untuk Mode Single
     private var singleTransName: String? = null
     private var singleTransIcon: Int = 0
     private var isStationBased: Boolean = false
@@ -61,27 +58,23 @@ class DestinationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1. Inisialisasi Map
         mapView = view.findViewById(R.id.mapView)
         mapView.setTileSource(TileSourceFactory.MAPNIK)
         mapView.setMultiTouchControls(true)
 
-        val startPoint = GeoPoint(-7.6298, 111.5176) // Madiun
+        val startPoint = GeoPoint(-7.6298, 111.5176)
         mapView.controller.setZoom(15.0)
         mapView.controller.setCenter(startPoint)
 
-        // 2. LOGIKA PENERIMAAN DATA (ARGUMENTS)
         val args = arguments
         if (args != null) {
             if (args.containsKey("TRANS1_NAME")) {
-                // KASUS A: DARI MENU GABUNGAN
                 isComboMode = true
                 trans1Name = args.getString("TRANS1_NAME")
                 trans2Name = args.getString("TRANS2_NAME")
                 trans1Icon = args.getInt("TRANS1_ICON")
                 trans2Icon = args.getInt("TRANS2_ICON")
             } else if (args.containsKey("TRANS_NAME")) {
-                // KASUS B: DARI MENU SINGLE (Motor, Mobil, dll)
                 isSingleMode = true
                 singleTransName = args.getString("TRANS_NAME")
                 singleTransIcon = args.getInt("TRANS_ICON")
@@ -89,13 +82,11 @@ class DestinationFragment : Fragment() {
             }
         }
 
-        // 3. SETUP UI BERDASARKAN MODE
         val cardIndicator = view.findViewById<CardView>(R.id.cardIndicator)
         val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
-        etSearch = view.findViewById(R.id.etSearchLocation) // Inisialisasi di sini
+        etSearch = view.findViewById(R.id.etSearchLocation)
 
         if (isComboMode) {
-            // Tampilkan Indikator Kombinasi
             cardIndicator.visibility = View.VISIBLE
             tvTitle.text = "Tentukan Lokasi\nJemput & Tujuan"
 
@@ -105,7 +96,6 @@ class DestinationFragment : Fragment() {
             view.findViewById<ImageView>(R.id.ivTrans2).setImageResource(trans2Icon)
 
         } else if (isSingleMode) {
-            // Sembunyikan Indikator, Sesuaikan Judul & Hint
             cardIndicator.visibility = View.GONE
 
             if (isStationBased) {
@@ -117,13 +107,11 @@ class DestinationFragment : Fragment() {
             }
 
         } else {
-            // KASUS C: DARI TOMBOL FAB (UMUM)
             cardIndicator.visibility = View.GONE
             tvTitle.text = "Mau Kemana\nHari Ini?"
             etSearch.hint = "Cari lokasi tujuan..."
         }
 
-        // 4. LOGIKA PENCARIAN
         val btnSearch = view.findViewById<ImageView>(R.id.btnSearch)
 
         etSearch.setOnEditorActionListener { _, actionId, event ->
@@ -141,23 +129,19 @@ class DestinationFragment : Fragment() {
             searchLocation(etSearch.text.toString())
         }
 
-        // 5. NAVIGASI BACK
         val navUpListener = View.OnClickListener { findNavController().navigateUp() }
         view.findViewById<View>(R.id.btnBack).setOnClickListener(navUpListener)
         view.findViewById<View>(R.id.btnBackContainer).setOnClickListener(navUpListener)
 
-        // 6. TOMBOL KONFIRMASI (NAVIGASI MAJU)
         view.findViewById<View>(R.id.btnConfirmDest).setOnClickListener {
             val locationName = etSearch.text.toString()
             val finalDest = if (locationName.isEmpty()) "Pin Lokasi Map" else locationName
 
             val bundle = Bundle().apply {
                 putString("DESTINATION_NAME", finalDest)
-                // Kirim koordinat center map jika perlu (latitude/longitude)
             }
 
             if (isComboMode) {
-                // Jalur Gabungan -> Langsung Bayar
                 bundle.putString("TRANS1_NAME", trans1Name)
                 bundle.putString("TRANS2_NAME", trans2Name)
                 bundle.putInt("TRANS1_ICON", trans1Icon)
@@ -165,15 +149,13 @@ class DestinationFragment : Fragment() {
                 findNavController().navigate(R.id.paymentFragment, bundle)
 
             } else if (isSingleMode) {
-                // Jalur Single -> Langsung Bayar
                 bundle.putString("TRANS1_NAME", singleTransName)
                 bundle.putInt("TRANS1_ICON", singleTransIcon)
                 bundle.putBoolean("IS_STATION_BASED", isStationBased)
-                bundle.putString("PICKUP_LOCATION", finalDest) // Info tambahan buat payment
+                bundle.putString("PICKUP_LOCATION", finalDest)
                 findNavController().navigate(R.id.paymentFragment, bundle)
 
             } else {
-                // Jalur Umum -> Pilih Transportasi Dulu
                 findNavController().navigate(R.id.transportSelectionFragment, bundle)
             }
         }
