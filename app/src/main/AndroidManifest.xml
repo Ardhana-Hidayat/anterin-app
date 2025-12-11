@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -15,29 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AnterInApp">
-        <activity
-            android:name=".DashboardActivity"
-            android:exported="true" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="true" />
-        <activity
-            android:name=".OnboardingActivity2"
-            android:exported="true" />
-        <activity
-            android:name=".OnboardingActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
-            android:name=".ScheduleActivity"
+            android:name=".activity.OnboardingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,25 +26,22 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".AddTripActivity"
-            android:exported="true" />
 
         <activity
-            android:name=".SuccessActivity"
-            android:exported="true" />
+            android:name=".activity.DashboardActivity"
+            android:exported="false" />
 
         <activity
-            android:name=".DaftarPesananActivity"
-            android:exported="true" />
+            android:name=".activity.LoginActivity"
+            android:exported="false" />
 
         <activity
-            android:name=".DetailJadwalActivity"
-            android:exported="true" />
+            android:name=".activity.RegisterActivity"
+            android:exported="false" />
 
         <activity
-            android:name=".DetailPesananActivity"
-            android:exported="true" />
+            android:name=".activity.OnboardingActivity2"
+            android:exported="false" />
 
     </application>
 

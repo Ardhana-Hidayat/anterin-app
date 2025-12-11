@@ -10,9 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 
 import id.ac.pnm.anterinapp.R
+import id.ac.pnm.anterinapp.adapter.BannerAdapter
 import id.ac.pnm.anterinapp.adapter.HistoryAdapter
+import id.ac.pnm.anterinapp.model.CarouselData
 import id.ac.pnm.anterinapp.model.HistoryData
 
 class HomeFragment : Fragment() {
@@ -26,6 +29,17 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val vpBanner = view.findViewById<ViewPager2>(R.id.vpBanner)
+
+        val bannerData = listOf(
+            CarouselData(R.drawable.promo_1),
+            CarouselData(R.drawable.promo_2),
+            CarouselData(R.drawable.promo_3)
+        )
+
+        val bannerAdapter = BannerAdapter(bannerData)
+        vpBanner.adapter = bannerAdapter
 
         val cardGabungan = view.findViewById<CardView>(R.id.cardGabungan)
         cardGabungan.setOnClickListener {

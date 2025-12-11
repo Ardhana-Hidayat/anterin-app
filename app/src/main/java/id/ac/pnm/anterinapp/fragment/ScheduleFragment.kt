@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-// --- IMPORT PENTING ---
 import id.ac.pnm.anterinapp.R
 import id.ac.pnm.anterinapp.adapter.ScheduleAdapter
 import id.ac.pnm.anterinapp.model.ScheduleData

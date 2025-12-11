@@ -32,6 +32,9 @@ class PaymentFragment : Fragment() {
         view.findViewById<ImageView>(R.id.ivTrans1).setImageResource(transportIcon)
 
         val tvRincian = view.findViewById<TextView>(R.id.tvCostDetailName)
+        view.findViewById<Button>(R.id.btnPickLocation).setOnClickListener {
+            findNavController().navigate(R.id.pickUpFragment)
+        }
 
         if (isStationBased) {
             tvRincian.text = "Tiket $transportName\n(Anda harus datang ke: $pickupLoc)"

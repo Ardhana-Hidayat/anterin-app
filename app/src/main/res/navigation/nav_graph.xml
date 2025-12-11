@@ -72,6 +72,11 @@
         android:label="fragment_transport_selection" />
 
     <fragment
+        android:id="@+id/pickUpFragment"
+        android:name="id.ac.pnm.anterinapp.PickUpFragment"
+        android:label="fragment_transport_selection" />
+
+    <fragment
         android:id="@+id/paymentFragment"
         android:name="id.ac.pnm.anterinapp.PaymentFragment"
         android:label="PaymentFragment" />
@@ -120,7 +125,7 @@
 
     <fragment
         android:id="@+id/orderListFragment"
-        android:name="id.ac.pnm.anterinapp.OrderingListFragment"
+        android:name="id.ac.pnm.anterinapp.fragment.OrderingListFragment"
         android:label="Order List"
         tools:layout="@layout/fragment_ordering_list">
         <action
