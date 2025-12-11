@@ -24,9 +24,10 @@
         android:fontFamily="@font/plus_jakarta_sans"
         android:text="Mau Kemana\nSelanjutnya?"
         android:textColor="@color/dark_blue"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/btnBack"
         app:layout_constraintTop_toTopOf="@+id/btnBack" />
 

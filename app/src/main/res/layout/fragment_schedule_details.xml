@@ -12,9 +12,9 @@
         android:layout_height="24dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/arrow_back"
-        app:tint="@color/dark_blue"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/dark_blue" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -24,9 +24,10 @@
         android:fontFamily="@font/plus_jakarta_sans"
         android:text="Detail Jadwal\nPerjalanan"
         android:textColor="@color/dark_blue"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/btnBack"
         app:layout_constraintTop_toTopOf="@+id/btnBack" />
 
@@ -37,7 +38,7 @@
         android:fontFamily="@font/plus_jakarta_sans"
         android:text="Ke Kampus"
         android:textColor="@color/blue_light"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tvTitle"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
