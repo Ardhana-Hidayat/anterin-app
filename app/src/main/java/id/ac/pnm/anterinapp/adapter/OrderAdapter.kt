@@ -9,8 +9,8 @@ import id.ac.pnm.anterinapp.model.OrderData
 import id.ac.pnm.anterinapp.R
 
 class OrderAdapter(
-    private val listOrder: List<OrderData>,
-    private val onItemClick: (OrderData) -> Unit
+    val listOrder: List<OrderData>,
+    val onItemClick: (OrderData) -> Unit
 ) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 
     class OrderViewHolder(view: View) : RecyclerView.ViewHolder(view) {

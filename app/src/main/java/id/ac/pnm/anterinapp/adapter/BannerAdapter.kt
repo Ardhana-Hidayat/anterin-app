@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import id.ac.pnm.anterinapp.R
 import id.ac.pnm.anterinapp.model.CarouselData
 
-class BannerAdapter(private val bannerList: List<CarouselData>) :
+class BannerAdapter(val bannerList: List<CarouselData>) :
     RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {
 
     class BannerViewHolder(view: View) : RecyclerView.ViewHolder(view) {

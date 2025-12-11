@@ -12,11 +12,11 @@ import id.ac.pnm.anterinapp.model.CombinationData
 import id.ac.pnm.anterinapp.R
 
 class CombinationAdapter(
-    private val items: List<CombinationData>,
-    private val onItemClick: (CombinationData) -> Unit
+    val items: List<CombinationData>,
+    val onItemClick: (CombinationData) -> Unit
 ) : RecyclerView.Adapter<CombinationAdapter.ViewHolder>() {
 
-    private var selectedPosition = -1
+    var selectedPosition = -1
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cardRoot: MaterialCardView = itemView.findViewById(R.id.cardRoot)

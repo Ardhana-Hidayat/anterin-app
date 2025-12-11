@@ -10,11 +10,11 @@ import id.ac.pnm.anterinapp.R
 import id.ac.pnm.anterinapp.model.HistoryData
 
 class HistoryAdapter(
-    private val originalList: List<HistoryData>,
-    private val onItemClick: (HistoryData) -> Unit
+    val originalList: List<HistoryData>,
+    val onItemClick: (HistoryData) -> Unit
 ) : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
-    private var displayList = ArrayList<HistoryData>()
+    var displayList = ArrayList<HistoryData>()
 
     init {
         displayList.addAll(originalList)

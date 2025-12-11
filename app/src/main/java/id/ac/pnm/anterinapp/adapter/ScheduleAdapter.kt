@@ -9,8 +9,8 @@ import id.ac.pnm.anterinapp.R
 import id.ac.pnm.anterinapp.model.ScheduleData
 
 class ScheduleAdapter(
-    private val listScheduleData: List<ScheduleData>,
-    private val onItemClick: (ScheduleData) -> Unit
+    val listScheduleData: List<ScheduleData>,
+    val onItemClick: (ScheduleData) -> Unit
 ) : RecyclerView.Adapter<ScheduleAdapter.JadwalViewHolder>() {
 
     class JadwalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
