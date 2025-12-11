@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import id.ac.pnm.anterinapp.R
 import id.ac.pnm.anterinapp.model.VoucherData
 
-class VoucherAdapter(private val voucherList: List<VoucherData>) :
+class VoucherAdapter(val voucherList: List<VoucherData>) :
     RecyclerView.Adapter<VoucherAdapter.VoucherViewHolder>() {
 
     class VoucherViewHolder(view: View) : RecyclerView.ViewHolder(view) {

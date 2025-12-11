@@ -40,7 +40,6 @@ class HistoryFragment : Fragment() {
         )
 
         val rvHistory = view.findViewById<RecyclerView>(R.id.rvHistory)
-        val etSearch = view.findViewById<EditText>(R.id.etSearchHistory)
 
         rvHistory.layoutManager = LinearLayoutManager(context)
 
@@ -60,15 +59,5 @@ class HistoryFragment : Fragment() {
         }
 
         rvHistory.adapter = adapter
-
-        etSearch.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                adapter.filterList(s.toString())
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
     }
 }

@@ -30,28 +30,13 @@
         app:layout_constraintStart_toEndOf="@+id/btnBack"
         app:layout_constraintTop_toTopOf="@+id/btnBack" />
 
-    <EditText
-        android:id="@+id/etSearch"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/bg_search_field"
-        android:drawableStart="@drawable/ic_search"
-        android:drawablePadding="12dp"
-        android:hint="Jadwalnya kemana aja nih?"
-        android:paddingHorizontal="16dp"
-        android:textColor="@color/dark_blue"
-        android:textColorHint="#9E9E9E"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvJadwal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etSearch" />
+        app:layout_constraintTop_toBottomOf="@+id/btnBack" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
