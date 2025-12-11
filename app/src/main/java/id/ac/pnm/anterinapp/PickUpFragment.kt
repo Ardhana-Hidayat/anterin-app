@@ -24,14 +24,10 @@ class PickUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val btnBack = view.findViewById<ImageView>(R.id.btnBack)
-        val btnConfirm = view.findViewById<Button>(R.id.btnConfirm)
 
         btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        btnConfirm.setOnClickListener {
-            Toast.makeText(context, "Titik Jemput Dikonfirmasi!", Toast.LENGTH_SHORT).show()
-        }
     }
 }
