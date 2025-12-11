@@ -10,12 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
-
 import id.ac.pnm.anterinapp.R
-import id.ac.pnm.anterinapp.adapter.BannerAdapter
 import id.ac.pnm.anterinapp.adapter.HistoryAdapter
-import id.ac.pnm.anterinapp.model.CarouselData
 import id.ac.pnm.anterinapp.model.HistoryData
 
 class HomeFragment : Fragment() {
@@ -30,20 +26,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val vpBanner = view.findViewById<ViewPager2>(R.id.vpBanner)
-        val bannerData = listOf(
-            CarouselData(R.drawable.promo_1),
-            CarouselData(R.drawable.promo_2),
-            CarouselData(R.drawable.promo_3)
-        )
-        val bannerAdapter = BannerAdapter(bannerData)
-        vpBanner.adapter = bannerAdapter
-
-        val cardGabungan = view.findViewById<CardView>(R.id.cardGabungan)
-        cardGabungan.setOnClickListener {
-            findNavController().navigate(R.id.combinationFragment)
-        }
-
         val btnMenuJadwal = view.findViewById<CardView>(R.id.btnMenuJadwal)
         btnMenuJadwal?.setOnClickListener {
             findNavController().navigate(R.id.action_home_to_schedule)
@@ -52,6 +34,15 @@ class HomeFragment : Fragment() {
         val btnMenuPesanan = view.findViewById<CardView>(R.id.btnMenuPesanan)
         btnMenuPesanan?.setOnClickListener {
             findNavController().navigate(R.id.action_home_to_orderList)
+        }
+
+        val cardGabungan = view.findViewById<CardView>(R.id.cardGabungan)
+        cardGabungan.setOnClickListener {
+            try {
+                findNavController().navigate(R.id.combinationFragment)
+            } catch (e: Exception) {
+                Toast.makeText(context, "Fitur belum tersedia", Toast.LENGTH_SHORT).show()
+            }
         }
 
         val rvHistoryDashboard = view.findViewById<RecyclerView>(R.id.rvHistoryDashboard)
@@ -71,39 +62,43 @@ class HomeFragment : Fragment() {
                 putString("ORDER_DATE", selectedItem.date)
                 putString("ORDER_STATUS", selectedItem.status)
             }
-
             try {
                 findNavController().navigate(R.id.detailHistoryFragment, bundle)
             } catch (e: Exception) {
-                Toast.makeText(context, "Detail: ${selectedItem.title}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Gagal membuka detail", Toast.LENGTH_SHORT).show()
             }
         }
 
         rvHistoryDashboard.adapter = adapter
 
-        fun goToDestination(transportName: String, transportIcon: Int, isPublicTransport: Boolean) {
+        fun goToDestination(transportName: String, transportIcon: Int) {
             val bundle = Bundle().apply {
-                putString("TRANS_NAME", transportName)
-                putInt("TRANS_ICON", transportIcon)
-                putBoolean("IS_STATION_BASED", isPublicTransport)
+                putString("TRANS1_NAME", transportName)
+                putInt("TRANS1_ICON", transportIcon)
+                putString("TRANS2_NAME", "Kereta")
+                putInt("TRANS2_ICON", R.drawable.train_icon)
             }
-            findNavController().navigate(R.id.destinationFragment, bundle)
+            try {
+                findNavController().navigate(R.id.destinationFragment, bundle)
+            } catch (e: Exception) {
+                Toast.makeText(context, "Navigasi gagal", Toast.LENGTH_SHORT).show()
+            }
         }
 
-        view.findViewById<View>(R.id.cardMotor).setOnClickListener {
-            goToDestination("Motor", R.drawable.motor_icon, false)
+        view.findViewById<View>(R.id.cardMotor)?.setOnClickListener {
+            goToDestination("Motor", R.drawable.motor_icon)
         }
 
-        view.findViewById<View>(R.id.cardMobil).setOnClickListener {
-            goToDestination("Mobil", R.drawable.car_icon, false)
+        view.findViewById<View>(R.id.cardMobil)?.setOnClickListener {
+            goToDestination("Mobil", R.drawable.car_icon)
         }
 
-        view.findViewById<View>(R.id.cardKereta).setOnClickListener {
-            goToDestination("Kereta", R.drawable.train_icon, true)
+        view.findViewById<View>(R.id.cardKereta)?.setOnClickListener {
+            goToDestination("Kereta", R.drawable.train_icon)
         }
 
-        view.findViewById<View>(R.id.cardBus).setOnClickListener {
-            goToDestination("Bus", R.drawable.bus_icon, true)
+        view.findViewById<View>(R.id.cardBus)?.setOnClickListener {
+            goToDestination("Bus", R.drawable.bus_icon)
         }
     }
 }
