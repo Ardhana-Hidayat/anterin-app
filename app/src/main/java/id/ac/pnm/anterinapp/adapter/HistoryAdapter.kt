@@ -52,21 +52,4 @@ class HistoryAdapter(
     }
 
     override fun getItemCount(): Int = displayList.size
-
-    fun filterList(query: String) {
-        displayList.clear()
-        if (query.isEmpty()) {
-            displayList.addAll(originalList)
-        } else {
-            val searchLower = query.lowercase()
-            for (item in originalList) {
-                if (item.title.lowercase().contains(searchLower) ||
-                    item.date.lowercase().contains(searchLower)) {
-                    displayList.add(item)
-                }
-            }
-        }
-
-        notifyDataSetChanged()
-    }
 }

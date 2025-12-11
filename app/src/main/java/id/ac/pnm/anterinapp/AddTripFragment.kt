@@ -37,7 +37,7 @@ class AddTripFragment : Fragment(R.layout.fragment_add_trip) {
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
             val myFormat = "dd MMMM yyyy"
-            val sdf = SimpleDateFormat(myFormat, Locale("id", "ID")) // Pakai Locale Indonesia
+            val sdf = SimpleDateFormat(myFormat, Locale("id", "ID"))
 
             etDate.setText(sdf.format(myCalendar.time))
         }

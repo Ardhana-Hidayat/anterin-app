@@ -12,11 +12,11 @@ import id.ac.pnm.anterinapp.R
 import id.ac.pnm.anterinapp.model.TransportData // Import Model Baru
 
 class TransportAdapter(
-    private val items: List<TransportData>,
-    private val onItemClick: (TransportData) -> Unit
+    val items: List<TransportData>,
+    val onItemClick: (TransportData) -> Unit
 ) : RecyclerView.Adapter<TransportAdapter.ViewHolder>() {
 
-    private var selectedPosition = -1
+    var selectedPosition = -1
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cardRoot: MaterialCardView = itemView.findViewById(R.id.cardRoot)

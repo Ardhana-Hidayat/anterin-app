@@ -3,6 +3,7 @@ package id.ac.pnm.anterinapp
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,17 +22,22 @@ class OrderingListFragment : Fragment(R.layout.fragment_ordering_list) {
         }
 
         val dataOrders = listOf(
-            OrderData("Ojek - Ke Kampus", "9 November 2025", "OJK-001"),
-            OrderData("Ojek - Ke Kampus", "8 November 2025", "OJK-002"),
-            OrderData("Mobil - Ke Stasiun", "7 November 2025", "CAR-003")
+            OrderData("Motor - Ke Kampus", "9 November 2025", "OJK-001", 12000),
+            OrderData("Mobil - Ke Stasiun", "7 November 2025", "CAR-003", 35000)
         )
 
         val rvOrder = view.findViewById<RecyclerView>(R.id.rvOrder)
         rvOrder.layoutManager = LinearLayoutManager(context)
 
         val adapter = OrderAdapter(dataOrders) { orderTerpilih ->
+            val bundle = bundleOf(
+                "ORDER_TITLE" to orderTerpilih.title,
+                "ORDER_DATE" to orderTerpilih.date,
+                "ORDER_ID" to orderTerpilih.orderId,
+                "PRICE" to orderTerpilih.price
+            )
 
-            findNavController().navigate(R.id.action_orderList_to_orderDetail)
+            findNavController().navigate(R.id.action_orderList_to_orderDetail, bundle)
         }
 
         rvOrder.adapter = adapter

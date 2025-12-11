@@ -14,10 +14,12 @@ class ScheduleDetailsFragment : Fragment(R.layout.fragment_schedule_details) {
 
         val btnBack = view.findViewById<ImageView>(R.id.btnBack)
         val tvSubHeader = view.findViewById<TextView>(R.id.tvSubHeader)
-        val judulDiterima = arguments?.getString("JUDUL_JADWAL")
+        val tvSchedule = view.findViewById<TextView>(R.id.tvSchedule)
+        val scheduleTitle = arguments?.getString("JUDUL_JADWAL")
 
-        if (judulDiterima != null) {
-            tvSubHeader.text = judulDiterima
+        if (scheduleTitle != null) {
+            tvSubHeader.text = scheduleTitle
+            tvSchedule.text = scheduleTitle
         }
 
         btnBack.setOnClickListener {

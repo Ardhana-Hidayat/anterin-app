@@ -19,7 +19,7 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dataScheduleData = listOf(
+        val dataSchedule = listOf(
             ScheduleData("1", "Berangkat ke Kampus", "10 November 2025"),
             ScheduleData("2", "Pulang ke Rumah", "10 November 2025"),
             ScheduleData("3", "Ke Stasiun Madiun", "11 November 2025")
@@ -28,10 +28,12 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
         val rvJadwal = view.findViewById<RecyclerView>(R.id.rvJadwal)
         rvJadwal.layoutManager = LinearLayoutManager(context)
 
-        val adapter = ScheduleAdapter(dataScheduleData) { jadwalTerpilih ->
+        //set up schedule adapter dan memberi input (data list dan fungsi navigasi)
+        val adapter = ScheduleAdapter(dataSchedule) { jadwalTerpilih ->
             val bundle = bundleOf("JUDUL_JADWAL" to jadwalTerpilih.judul)
             findNavController().navigate(R.id.action_schedule_to_scheduleDetail, bundle)
         }
+
         rvJadwal.adapter = adapter
 
         val btnBack = view.findViewById<ImageView>(R.id.btnBack)
