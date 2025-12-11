@@ -28,20 +28,13 @@ import java.util.Locale
 
 class DestinationFragment : Fragment() {
 
-    private lateinit var mapView: MapView
-    private lateinit var etSearch: EditText
+    lateinit var mapView: MapView
+    lateinit var etSearch: EditText
 
-    private var isComboMode = false
-    private var isSingleMode = false
-
-    private var trans1Name: String? = null
-    private var trans2Name: String? = null
-    private var trans1Icon: Int = 0
-    private var trans2Icon: Int = 0
-
-    private var singleTransName: String? = null
-    private var singleTransIcon: Int = 0
-    private var isStationBased: Boolean = false
+    var isQuickMode = false
+    var isStationBased = false
+    var singleTransName: String? = null
+    var singleTransIcon: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,47 +60,29 @@ class DestinationFragment : Fragment() {
         mapView.controller.setCenter(startPoint)
 
         val args = arguments
-        if (args != null) {
-            if (args.containsKey("TRANS1_NAME")) {
-                isComboMode = true
-                trans1Name = args.getString("TRANS1_NAME")
-                trans2Name = args.getString("TRANS2_NAME")
-                trans1Icon = args.getInt("TRANS1_ICON")
-                trans2Icon = args.getInt("TRANS2_ICON")
-            } else if (args.containsKey("TRANS_NAME")) {
-                isSingleMode = true
-                singleTransName = args.getString("TRANS_NAME")
-                singleTransIcon = args.getInt("TRANS_ICON")
-                isStationBased = args.getBoolean("IS_STATION_BASED", false)
-            }
+        if (args != null && args.containsKey("TRANS_NAME")) {
+            isQuickMode = true
+            singleTransName = args.getString("TRANS_NAME")
+            singleTransIcon = args.getInt("TRANS_ICON")
+            isStationBased = args.getBoolean("IS_STATION_BASED", false)
         }
 
         val cardIndicator = view.findViewById<CardView>(R.id.cardIndicator)
         val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
         etSearch = view.findViewById(R.id.etSearchLocation)
 
-        if (isComboMode) {
-            cardIndicator.visibility = View.VISIBLE
-            tvTitle.text = "Tentukan Lokasi\nJemput & Tujuan"
+        cardIndicator?.visibility = View.GONE
 
-            view.findViewById<TextView>(R.id.tvTrans1).text = trans1Name
-            view.findViewById<TextView>(R.id.tvTrans2).text = trans2Name
-            view.findViewById<ImageView>(R.id.ivTrans1).setImageResource(trans1Icon)
-            view.findViewById<ImageView>(R.id.ivTrans2).setImageResource(trans2Icon)
-
-        } else if (isSingleMode) {
-            cardIndicator.visibility = View.GONE
-
+        if (isQuickMode) {
             if (isStationBased) {
                 tvTitle.text = "Pilih Lokasi\nStasiun / Terminal"
-                etSearch.hint = "Cari nama stasiun (misal: Madiun)..."
+                etSearch.hint = "Cari nama stasiun/terminal (misal: Terminal Seloaji Ponorogo)..."
             } else {
                 tvTitle.text = "Tentukan Titik\nPenjemputan"
                 etSearch.hint = "Cari alamat jemput..."
             }
 
         } else {
-            cardIndicator.visibility = View.GONE
             tvTitle.text = "Mau Kemana\nHari Ini?"
             etSearch.hint = "Cari lokasi tujuan..."
         }
@@ -141,27 +116,20 @@ class DestinationFragment : Fragment() {
                 putString("DESTINATION_NAME", finalDest)
             }
 
-            if (isComboMode) {
-                bundle.putString("TRANS1_NAME", trans1Name)
-                bundle.putString("TRANS2_NAME", trans2Name)
-                bundle.putInt("TRANS1_ICON", trans1Icon)
-                bundle.putInt("TRANS2_ICON", trans2Icon)
-                findNavController().navigate(R.id.paymentFragment, bundle)
-
-            } else if (isSingleMode) {
+            if (isQuickMode) {
                 bundle.putString("TRANS1_NAME", singleTransName)
                 bundle.putInt("TRANS1_ICON", singleTransIcon)
                 bundle.putBoolean("IS_STATION_BASED", isStationBased)
                 bundle.putString("PICKUP_LOCATION", finalDest)
-                findNavController().navigate(R.id.paymentFragment, bundle)
 
+                findNavController().navigate(R.id.paymentFragment, bundle)
             } else {
                 findNavController().navigate(R.id.transportSelectionFragment, bundle)
             }
         }
     }
 
-    private fun searchLocation(locationName: String) {
+    fun searchLocation(locationName: String) {
         if (locationName.isEmpty()) {
             Toast.makeText(context, "Masukkan nama lokasi", Toast.LENGTH_SHORT).show()
             return

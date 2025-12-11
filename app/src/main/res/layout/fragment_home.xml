@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Mau ngapain hari ini?"
+                android:text="Mau kemana hari ini?"
                 android:textColor="#999999"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -93,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_foreground"
+                android:src="@drawable/avatar"
                 android:background="#FFC107" />
         </androidx.cardview.widget.CardView>
     </LinearLayout>

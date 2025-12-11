@@ -20,7 +20,7 @@
     android:weightSum="3">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1.2"
         android:gravity="center"
@@ -37,37 +37,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Motor"
-            android:textSize="12sp"
-            android:textColor="#505F79"/>
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.6"
-        android:text="+"
-        android:textSize="24sp"
-        android:textColor="#000000"
-        android:gravity="center"/>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.2"
-        android:gravity="center"
-        android:orientation="vertical">
-        <ImageView
-            android:id="@+id/ivTrans2"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/train_icon"
-            app:tint="#505F79"/>
-        <TextView
-            android:id="@+id/tvTrans2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Kereta"
             android:textSize="12sp"
             android:textColor="#505F79"/>
     </LinearLayout>

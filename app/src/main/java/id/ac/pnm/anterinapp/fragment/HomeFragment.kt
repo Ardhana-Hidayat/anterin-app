@@ -1,9 +1,11 @@
 package id.ac.pnm.anterinapp.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2 // Import ViewPager2
 
 import id.ac.pnm.anterinapp.R
+import id.ac.pnm.anterinapp.activity.DashboardActivity
 import id.ac.pnm.anterinapp.adapter.BannerAdapter // Import Adapter
 import id.ac.pnm.anterinapp.adapter.HistoryAdapter
 import id.ac.pnm.anterinapp.model.CarouselData // Import Model
@@ -30,6 +33,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val parentActivity = activity as DashboardActivity
+        val name = parentActivity.userName
+
+        val tvGreeting = view.findViewById<TextView>(R.id.tvGreeting)
+        tvGreeting.text = "Halo, $name!"
+
         val vpBanner = view.findViewById<ViewPager2>(R.id.vpBanner)
 
         val bannerList = listOf(
@@ -37,6 +46,12 @@ class HomeFragment : Fragment() {
             CarouselData(R.drawable.promo_2),
             CarouselData(R.drawable.promo_3)
         )
+
+        val btnProfile = view.findViewById<CardView>(R.id.cardProfile)
+
+        btnProfile.setOnClickListener {
+            findNavController().navigate(R.id.profileFragment)
+        }
 
         val bannerAdapter = BannerAdapter(bannerList)
         vpBanner.adapter = bannerAdapter

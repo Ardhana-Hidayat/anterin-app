@@ -15,9 +15,13 @@ import id.ac.pnm.anterinapp.R
 
 class DashboardActivity : AppCompatActivity() {
 
+    var userName: String = "Username"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
+        userName = intent.getStringExtra("USERNAME") ?: "Pengguna"
 
         val bottomAppBar = findViewById<BottomAppBar>(R.id.bottomAppBar)
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)

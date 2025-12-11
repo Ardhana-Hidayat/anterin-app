@@ -28,6 +28,5 @@ class PickUpFragment : Fragment() {
         btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
-
     }
 }

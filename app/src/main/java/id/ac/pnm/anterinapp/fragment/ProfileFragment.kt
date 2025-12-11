@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 
 // --- IMPORT PENTING ---
 import id.ac.pnm.anterinapp.R
+import id.ac.pnm.anterinapp.activity.DashboardActivity
 
 class ProfileFragment : Fragment() {
 
@@ -24,7 +26,10 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val parentActivity = activity as DashboardActivity
+        val name = parentActivity.userName
 
-
+        val tvName = view.findViewById<TextView>(R.id.tvName)
+        tvName.text = name
     }
 }
