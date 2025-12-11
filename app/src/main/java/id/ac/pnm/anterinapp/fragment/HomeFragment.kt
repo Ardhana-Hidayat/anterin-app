@@ -10,8 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2 // Import ViewPager2
+
 import id.ac.pnm.anterinapp.R
+import id.ac.pnm.anterinapp.adapter.BannerAdapter // Import Adapter
 import id.ac.pnm.anterinapp.adapter.HistoryAdapter
+import id.ac.pnm.anterinapp.model.CarouselData // Import Model
 import id.ac.pnm.anterinapp.model.HistoryData
 
 class HomeFragment : Fragment() {
@@ -25,6 +29,17 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val vpBanner = view.findViewById<ViewPager2>(R.id.vpBanner)
+
+        val bannerList = listOf(
+            CarouselData(R.drawable.promo_1),
+            CarouselData(R.drawable.promo_2),
+            CarouselData(R.drawable.promo_3)
+        )
+
+        val bannerAdapter = BannerAdapter(bannerList)
+        vpBanner.adapter = bannerAdapter
 
         val btnMenuJadwal = view.findViewById<CardView>(R.id.btnMenuJadwal)
         btnMenuJadwal?.setOnClickListener {
@@ -63,20 +78,20 @@ class HomeFragment : Fragment() {
                 putString("ORDER_STATUS", selectedItem.status)
             }
             try {
-                findNavController().navigate(R.id.detailHistoryFragment, bundle)
+                findNavController().navigate(R.id.orderDetailFragment, bundle)
             } catch (e: Exception) {
-                Toast.makeText(context, "Gagal membuka detail", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Gagal membuka detail: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
 
         rvHistoryDashboard.adapter = adapter
 
-        fun goToDestination(transportName: String, transportIcon: Int) {
+        fun goToDestination(transportName: String, transportIcon: Int, isPublicTransport: Boolean) {
             val bundle = Bundle().apply {
-                putString("TRANS1_NAME", transportName)
-                putInt("TRANS1_ICON", transportIcon)
-                putString("TRANS2_NAME", "Kereta")
-                putInt("TRANS2_ICON", R.drawable.train_icon)
+                putString("TRANS_NAME", transportName)
+                putInt("TRANS_ICON", transportIcon)
+
+                putBoolean("IS_STATION_BASED", isPublicTransport)
             }
             try {
                 findNavController().navigate(R.id.destinationFragment, bundle)
@@ -85,20 +100,20 @@ class HomeFragment : Fragment() {
             }
         }
 
-        view.findViewById<View>(R.id.cardMotor)?.setOnClickListener {
-            goToDestination("Motor", R.drawable.motor_icon)
+        view.findViewById<View>(R.id.cardMotor).setOnClickListener {
+            goToDestination("Motor", R.drawable.motor_icon, false)
         }
 
-        view.findViewById<View>(R.id.cardMobil)?.setOnClickListener {
-            goToDestination("Mobil", R.drawable.car_icon)
+        view.findViewById<View>(R.id.cardMobil).setOnClickListener {
+            goToDestination("Mobil", R.drawable.car_icon, false)
         }
 
-        view.findViewById<View>(R.id.cardKereta)?.setOnClickListener {
-            goToDestination("Kereta", R.drawable.train_icon)
+        view.findViewById<View>(R.id.cardKereta).setOnClickListener {
+            goToDestination("Kereta", R.drawable.train_icon, true)
         }
 
-        view.findViewById<View>(R.id.cardBus)?.setOnClickListener {
-            goToDestination("Bus", R.drawable.bus_icon)
+        view.findViewById<View>(R.id.cardBus).setOnClickListener {
+            goToDestination("Bus", R.drawable.bus_icon, true)
         }
     }
 }
